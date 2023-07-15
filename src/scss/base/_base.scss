@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 10px;
+  scroll-behavior: smooth;
+  height: 100%;
+  margin: 0;
+}
+body {
+  font-family: "Roboto", Arial, sans-serif !important;
+  letter-spacing: 0;
+  height: 100%;
+  margin: 0;
+}
+.main {
+  height: 100%;
+  margin: 0;
+}
+
+:where(.css-dev-only-do-not-override-12upa3x).ant-form {
+  font-family: "Roboto", Arial, sans-serif !important;
+}

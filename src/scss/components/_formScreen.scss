@@ -1,0 +1,99 @@
+.formScreen__background {
+  position: fixed;
+  top: -20%;
+  left: -5%;
+}
+.mainBackground {
+  background: rgb(56, 114, 174);
+  height: 1900px;
+}
+.formScreen {
+  min-height: 100vh;
+  width: 100vw;
+  padding-top: 12px;
+  position: relative;
+
+  &__form {
+    max-width: 90vw;
+    width: 640px;
+    margin: auto;
+    font-size: 11pt;
+    line-height: 15pt;
+    letter-spacing: 0;
+    z-index: 1;
+    position: absolute;
+    left: 50%;
+    a {
+      text-decoration: underline;
+    }
+    &__info {
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid rgb(218, 220, 224);
+      position: relative;
+      padding: 24px;
+      &__bar {
+        background-color: rgb(103, 58, 183);
+        color: rgba(255, 255, 255, 1);
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        height: 10px;
+        left: -1px;
+        position: absolute;
+        top: -1px;
+        width: calc(100% + 2px);
+      }
+      &__header {
+        font-size: 24pt;
+        font-weight: 700;
+        color: #202124;
+        line-height: 135%;
+      }
+      &__subInfo {
+        margin-top: 12px;
+        color: #202124;
+        font-weight: 400;
+        line-height: 15pt;
+        letter-spacing: 0;
+      }
+    }
+    &__input {
+      padding: 24px;
+      padding-bottom: 0px;
+      background: #fff;
+      margin-top: 12px;
+      border-radius: 8px;
+      border: 1px solid rgb(218, 220, 224);
+      span {
+        line-height: 24px;
+        color: #202124;
+        font-weight: 500;
+        font-size: 11pt;
+        span {
+          color: red;
+        }
+      }
+      input {
+        margin-top: 12px;
+        border: none;
+        padding: 4px 0;
+        border-bottom: solid 1px #000;
+        border-radius: 0;
+      }
+    }
+    &__submit {
+      margin-top: 12px;
+      padding-bottom: 16px;
+      div {
+        background: #fff;
+        border-radius: 5px;
+        color: rgb(56, 114, 174);
+        cursor: pointer;
+        padding: 6px 12px;
+        width: 130px;
+        text-align: center;
+        font-weight: bold;
+      }
+    }
+  }
+}
