@@ -58,6 +58,7 @@ const apiWithPayload =
           responseType: isBlob ? "blob" : undefined,
           data: method !== "GET" ? payload : postMethod(payload),
           params: method === "GET" ? payload || "" : "",
+
           onDownloadProgress: (progressEvent) => {
             eventEmitter.emit(
               "UPLOAD_PROGRESS",
@@ -69,6 +70,8 @@ const apiWithPayload =
         isAuth || false
       )
         .then((response) => {
+          console.log("repson setcookie", response.headers["set-cookie"]);
+          console.log("repson getAuthor", response.headers.getAuthorization());
           resolve(response.data);
         })
         .catch((err) => {

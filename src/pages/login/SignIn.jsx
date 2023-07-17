@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import brandImg from "../../assets/images/brand.jpg";
 import { API_URL } from "../../services/api/config";
 import { api } from "../../services/api/api.index.js";
+import axios from "axios";
 const SignIn = () => {
   const [formStep1] = Form.useForm();
   const [formStep2] = Form.useForm();
@@ -14,12 +15,27 @@ const SignIn = () => {
   const handleFinishStep1 = async (e) => {
     console.log(e);
     try {
-      let { data } = await api.post(`${API_URL}core/v1/auth/login`, {
-        email: e.email,
-        password: e.password,
-      });
+      // let data = await axios.post(`${API_URL}core/v1/auth/login`, {
+      //   email: e.email,
+      //   password: e.password,
+      // });
+      // setStep(2);
+      let data = await axios.post(
+        `${API_URL}core/v1/auth/login`,
+        {
+          email: e.email,
+          password: e.password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            responseType: "blob",
+            "x-auth-uuid": "",
+          },
+          withCredentials: true,
+        }
+      );
       console.log(data)
-      setStep(2);
     } catch (e) {
       console.log(e);
     }
@@ -33,14 +49,13 @@ const SignIn = () => {
       let { data } = await api.post(`${API_URL}core/v1/auth/verify`, {
         verify_code: e.otp,
       });
-      console.log(data)
+      console.log(data);
       setStep(3);
     } catch (e) {
       console.log(e);
     }
   };
-  const handleFinishStep3 = (e) => {
-  };
+  const handleFinishStep3 = (e) => {};
   return (
     <div className="signin__mainBackground">
       <div className="signin__background">
