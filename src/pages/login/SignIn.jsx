@@ -27,10 +27,14 @@ const SignIn = () => {
           password: e.password,
         },
         {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            withCredentials: true,
+          },
           withCredentials: true,
         }
       );
+      setStep(2);
       console.log(data);
     } catch (e) {
       console.log(e);
@@ -42,11 +46,17 @@ const SignIn = () => {
     console.log(e);
 
     try {
-      let { data } = await api.post(`${API_URL}core/v1/auth/verify`, {
-        verify_code: e.otp,
-      });
+      let data = await axios.post(
+        `${API_URL}core/v1/auth/verify`,
+        {
+          verify_code: e.otp,
+        },
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
       console.log(data);
-      setStep(3);
     } catch (e) {
       console.log(e);
     }
