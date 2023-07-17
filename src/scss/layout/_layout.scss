@@ -1,6 +1,58 @@
 @use "sass:math";
 @use "../abstracts" as *;
-.row{
-    display:flex;
-    flex-wrap: wrap;
+.row {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.mainPage {
+  width: 100vw;
+  height: 100vh;
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    background: rgb(54, 113, 173);
+    height: 60px;
+    z-index: 1;
+  }
+  .children-page {
+    margin-left: 230px;
+    width: calc(100% - 230px);
+    height: calc(100% - 60px);
+  }
+  .slider {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 220px;
+    margin-top: 60px;
+    background: rgb(237, 242, 247);
+    height: calc(100vh - 60px);
+    .menu {
+      padding: 4px;
+      .tab {
+        height: 40px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      .tab--active {
+        height: 40px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 0 16px;
+        font-size: 14px;
+        background: rgb(54, 113, 173);
+        color: #fff;
+        cursor: pointer;
+      }
+    }
+  }
 }

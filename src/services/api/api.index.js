@@ -9,9 +9,12 @@ const addHeaders = async (url, options, dataHeaders, isAuth) => {
     "x-auth-uuid": "",
   };
   let token = localGetToken();
+
   let uuid = localGetAuthUUID();
-  if (isAuth && token && uuid) {
-    headers.Authorization = token;
+  if (isAuth && token) {
+    headers.Authorization = "Bearer " + token;
+  }
+  if (isAuth && uuid) {
     headers["x-auth-uuid"] = uuid;
   }
   if (dataHeaders) {

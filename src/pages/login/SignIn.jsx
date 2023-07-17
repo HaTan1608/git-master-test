@@ -1,13 +1,20 @@
 import { Form, Input, message } from "antd";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import brandImg from "../../assets/images/brand.jpg";
 import { API_URL } from "../../services/api/config";
 import { api } from "../../services/api/api.index.js";
+import {
+  localGetToken,
+  localSaveToken,
+} from "../../utils/localStorage/index.js";
 import axios from "axios";
 const SignIn = () => {
   const [formStep1] = Form.useForm();
   const [formStep2] = Form.useForm();
   const [formStep3] = Form.useForm();
+  const navigate = useNavigate();
 
   const [step, setStep] = useState(1);
   const [verifyCode, setVerifyCode] = useState(1);
@@ -15,27 +22,13 @@ const SignIn = () => {
   const handleFinishStep1 = async (e) => {
     console.log(e);
     try {
-      // let data = await axios.post(`${API_URL}core/v1/auth/login`, {
-      //   email: e.email,
-      //   password: e.password,
-      // });
-      // setStep(2);
-      let data = await axios.post(
-        `${API_URL}core/v1/auth/login`,
-        {
-          email: e.email,
-          password: e.password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            withCredentials: true,
-          },
-          withCredentials: true,
-        }
-      );
-      setStep(2);
+      let { data } = await api.post(`${API_URL}core/v1/auth/login`, {
+        email: e.email,
+        password: e.password,
+      });
       console.log(data);
+      localSaveToken(data.accessToken);
+      setStep(2);
     } catch (e) {
       console.log(e);
     }
@@ -44,19 +37,12 @@ const SignIn = () => {
   };
   const handleFinishStep2 = async (e) => {
     console.log(e);
-
+    console.log(localGetToken());
     try {
-      let data = await axios.post(
-        `${API_URL}core/v1/auth/verify`,
-        {
-          verify_code: e.otp,
-        },
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-      console.log(data);
+      let { data } = await api.post(`${API_URL}core/v1/auth/verify`, {
+        verify_code: e.otp,
+      });
+      navigate("/connect");
     } catch (e) {
       console.log(e);
     }
