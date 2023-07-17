@@ -27,15 +27,11 @@ const SignIn = () => {
           password: e.password,
         },
         {
-          headers: {
-            "Content-Type": "application/json",
-            responseType: "blob",
-            "x-auth-uuid": "",
-          },
+          headers: { "Content-Type": "application/json" },
           withCredentials: true,
         }
       );
-      console.log(data)
+      console.log(data);
     } catch (e) {
       console.log(e);
     }
