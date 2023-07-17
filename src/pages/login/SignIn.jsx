@@ -1,21 +1,45 @@
 import { Form, Input, message } from "antd";
 import React, { useState } from "react";
 import brandImg from "../../assets/images/brand.jpg";
-
+import { API_URL } from "../../services/api/config";
+import { api } from "../../services/api/api.index.js";
 const SignIn = () => {
   const [formStep1] = Form.useForm();
   const [formStep2] = Form.useForm();
   const [formStep3] = Form.useForm();
 
   const [step, setStep] = useState(1);
-  const handleFinishStep1 = (e) => {
-    setStep(step + 1);
+  const [verifyCode, setVerifyCode] = useState(1);
+
+  const handleFinishStep1 = async (e) => {
+    console.log(e);
+    try {
+      let { data } = await api.post(`${API_URL}core/v1/auth/login`, {
+        email: e.email,
+        password: e.password,
+      });
+      console.log(data)
+      setStep(2);
+    } catch (e) {
+      console.log(e);
+    }
+
+    // setStep(step + 1);
   };
-  const handleFinishStep2 = (e) => {
-    setStep(step + 1);
+  const handleFinishStep2 = async (e) => {
+    console.log(e);
+
+    try {
+      let { data } = await api.post(`${API_URL}core/v1/auth/verify`, {
+        verify_code: e.otp,
+      });
+      console.log(data)
+      setStep(3);
+    } catch (e) {
+      console.log(e);
+    }
   };
   const handleFinishStep3 = (e) => {
-    setStep(step + 1);
   };
   return (
     <div className="signin__mainBackground">
@@ -35,19 +59,21 @@ const SignIn = () => {
             <span>
               Tên đăng nhập <span style={{ color: "red" }}>*</span>
             </span>
-            <Form.Item className="signin__form__item" name="username">
+            <Form.Item className="signin__form__item" name="email">
               <Input placeholder="Nhập tên đăng nhập" />
             </Form.Item>
 
             <span>
               Mật khẩu <span style={{ color: "red" }}>*</span>
             </span>
-            <Form.Item className="signin__form__item" name="phone">
-              <Input placeholder="Nhập mật khẩu" />
+            <Form.Item className="signin__form__item" name="password">
+              <Input type="password" placeholder="Nhập mật khẩu" />
             </Form.Item>
 
             <div className="signin__form__submit">
-              <div style={{ width: "100%" }}  onClick={() => formStep1.submit()}>Đăng nhập</div>
+              <div style={{ width: "100%" }} onClick={() => formStep1.submit()}>
+                Đăng nhập
+              </div>
             </div>
           </Form>
         )}
@@ -64,7 +90,11 @@ const SignIn = () => {
                 Vui lòng kiểm tra email và nhập mã bảo mật nhận được xuống đây
               </p>
             </div>
-            <Form.Item className="signin__form__item" name="otp" style={{ margin: "12px 0" }}>
+            <Form.Item
+              className="signin__form__item"
+              name="otp"
+              style={{ margin: "12px 0" }}
+            >
               <Input placeholder="Nhập mã bảo mật" />
             </Form.Item>
             <div className="signin__form__submit">
@@ -132,7 +162,9 @@ const SignIn = () => {
               </p>
             </div>
             <div className="signin__form__submit">
-              <div onClick={()=>setStep(1)} style={{ width: "100%" }}>Trở về trang trước</div>
+              <div onClick={() => setStep(1)} style={{ width: "100%" }}>
+                Trở về trang trước
+              </div>
             </div>
           </div>
         )}
