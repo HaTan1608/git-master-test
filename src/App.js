@@ -1,8 +1,6 @@
-import logo from "./logo.svg";
 import "./App.css";
-import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SignIn from "./pages/login/SignIn";
-import { RequireAuth, useAuth } from "./services/authorRouter";
 import Connect from "./pages/connect/Connect";
 import Main from "./components/layout/Main";
 

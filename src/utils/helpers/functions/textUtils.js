@@ -5,23 +5,23 @@ import isNil from "lodash/isNil";
 import identity from "lodash/identity";
 import ShortUniqueId from "short-unique-id";
 
-export const numberWithCommas = (x: string) => {
+export const numberWithCommas = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
-export const numberWithDot = (x: string) => {
+export const numberWithDot = (x) => {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 };
-export const numberWithDotChange = (x: string) => {
+export const numberWithDotChange = (x) => {
   x = x.split(".").join("");
   return x;
   // return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
-export const numberWithCommasChange = (x: string) => {
+export const numberWithCommasChange = (x) => {
   x = x.split(",").join("");
   return x;
   // return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
-export const numberWithCommasV1 = (value: string) => {
+export const numberWithCommasV1 = (value) => {
   if (value.length > 0 && value[0] === "0") {
     return value
       .slice(1, value.length)
@@ -31,11 +31,11 @@ export const numberWithCommasV1 = (value: string) => {
     return value.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
 };
-export const numberOnly = (value: string) => {
+export const numberOnly = (value) => {
   return value.toString().replace(/[a-z]*/g, "");
 };
 
-export const change_alias = (alias: string) => {
+export const change_alias = (alias) => {
   var str = alias;
   str = str.toLowerCase();
   str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
@@ -63,9 +63,9 @@ export const change_alias = (alias: string) => {
 // }
 
 export const calculateProfit = (
-  day: number,
-  amount: number,
-  profit: number
+  day,
+  amount,
+  profit
 ) => {
   let result = 0;
 
@@ -74,29 +74,29 @@ export const calculateProfit = (
   return result;
 };
 
-export const validatephone = (phone: string) => {
+export const validatephone = (phone) => {
   const expression =
     /^(0|\+84)(\s|\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\d)(\s|\.)?(\d{3})(\s|\.)?(\d{3})$/;
 
   return expression.test(phone);
 };
-export const validatestrongpass = (pass: string) => {
+export const validatestrongpass = (pass) => {
   const expression = new RegExp("^(((?=.*[A-Z])(?=.*[0-9])))(?=.{8,})");
 
   return expression.test(pass);
 };
-export const validatepass = (pass: string) => {
+export const validatepass = (pass) => {
   const expression1 = /[A-Za-z\d@$!%*?&]{8,}$/;
 
   return expression1.test(pass);
 };
-export const validateEmail = (email: string) => {
+export const validateEmail = (email) => {
   const re =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 };
 
-export function removeSign(str: string) {
+export function removeSign(str) {
   str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a"); //eslint-disable-line
   str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e"); //eslint-disable-line
   str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i"); //eslint-disable-line
@@ -114,7 +114,7 @@ export function removeSign(str: string) {
   return str;
 }
 
-export function validateMobile(phone: string) {
+export function validateMobile(phone) {
   let flag = false;
   phone = phone.replace("(+84)", "0"); //eslint-disable-line
   phone = phone.replace("+84", "0"); //eslint-disable-line
@@ -130,12 +130,12 @@ export function validateMobile(phone: string) {
   return flag;
 }
 
-export function isValid(string: string) {
+export function isValid(string) {
   const re = /^[a-zA-Z!@#\$%\^\&*\)\(+=._-]{2,}$/g; //eslint-disable-line
   return re.test(removeSign(string));
 }
 
-export function regx(value: string) {
+export function regx(value) {
   // regx to validate currency number
   return `${value}`
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -152,17 +152,17 @@ export const findAndRemove = (arr = [], index = -1) => {
   return arr;
 };
 
-export function validatePassword(password: string) {
+export function validatePassword(password) {
   return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
     password
   );
 }
 
-export const formatNumber = (number: number) => {
+export const formatNumber = (number) => {
   return new Intl.NumberFormat("vi-VN").format(number);
 };
 
-export const removeUnicode = (str: string) => {
+export const removeUnicode = (str) => {
   return str
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
@@ -172,10 +172,10 @@ export const removeUnicode = (str: string) => {
 };
 
 export const getAddressString = (
-  a: string,
-  w: string,
-  d: string,
-  p: string
+  a,
+  w,
+  d,
+  p
 ) => {
   let ret = "";
   ret += `${a ? a + ", " : ""}`; //eslint-disable-line
@@ -185,7 +185,7 @@ export const getAddressString = (
   return ret.replace(/,$/, "").replace(/, $/, "");
 };
 
-export function validateURL(url: string) {
+export function validateURL(url) {
   const expression =
     /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
   const regex = new RegExp(expression);
@@ -196,7 +196,7 @@ export const postMethod = (input = {}) => {
   return omitBy(input, isNil); //eslint-disable-line
 };
 
-export const exportPdf = (file: File) => {
+export const exportPdf = (file) => {
   const url = window.URL.createObjectURL(
     new Blob([file], { type: "application/pdf" })
   );
@@ -208,7 +208,7 @@ export const exportPdf = (file: File) => {
   link.click();
 };
 
-export const exportExcel = (file: File, name: string = "Report_") => {
+export const exportExcel = (file, name = "Report_") => {
   const url = window.URL.createObjectURL(new Blob([file]));
   const link = document.createElement("a");
   const newDate = new Date();
@@ -221,22 +221,22 @@ export const exportExcel = (file: File, name: string = "Report_") => {
   link.click();
 };
 
-export const geneNameBank = (string: string) => {
+export const geneNameBank = (string) => {
   const stringRMS = removeSign(string);
   const convert = stringRMS.split(" ").join("");
   return convert.toUpperCase();
 };
 
-export const geneUniId = (id: any | undefined) => {
+export const geneUniId = (id) => {
   const unique = `id${id}_${Math.random().toString(16).slice(2)}`;
   return unique;
 };
 
-export const parseCatchError = (error: any) => {
+export const parseCatchError = (error) => {
   const defaultMess = "Lỗi! Vui lòng thử lại";
   return JSON.parse(JSON.stringify(error?.data?.message)) ?? defaultMess;
 };
-export const isVietnamesePhoneNumber = (number: string) => {
+export const isVietnamesePhoneNumber = (number) => {
   return /((03|05|07|08|09)+([0-9]{8}))\b|((02)+([0-9]{9}))\b|(^(19)+([0-9]{6,8}))\b|(^(18)+([0-9]){6,8})\b/.test(
     number
   );
@@ -246,21 +246,21 @@ export const geneUniqueKey = () => {
   return uid();
 };
 
-export const convertNumberWithCommas = (str: string) => {
+export const convertNumberWithCommas = (str) => {
   return str.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 };
-export const convertweightWithCommas = (str: any) => {
+export const convertweightWithCommas = (str) => {
   return str.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 };
-export const convertNumberWithDotChange = (str: string) => {
+export const convertNumberWithDotChange = (str) => {
   return str.replace(/\$\s?|(,*)/g, "");
 };
 
-export const convertSpaceOnURL = (url: string) => {
+export const convertSpaceOnURL = (url) => {
   return url.replaceAll(" ", "%20");
 };
 
-export const convertStringWithCommas = (str: string) => {
+export const convertStringWithCommas = (str) => {
   let b = "";
   for (let i = 0; i < str.length; i++) {
     b = str[i] + b;

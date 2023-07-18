@@ -1,6 +1,7 @@
 /* eslint-disable */
 import axios from "axios";
 import eventEmitter from "./test";
+import { postMethod } from "../../utils/helpers/functions/textUtils";
 import { localGetAuthUUID, localGetToken } from "../../utils/localStorage";
 const addHeaders = async (url, options, dataHeaders, isAuth) => {
   let headers = {

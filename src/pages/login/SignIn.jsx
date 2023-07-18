@@ -1,4 +1,4 @@
-import { Form, Input, message } from "antd";
+import { Button, Form, Input } from "antd";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -6,22 +6,24 @@ import brandImg from "../../assets/images/brand.jpg";
 import { API_URL } from "../../services/api/config";
 import { api } from "../../services/api/api.index.js";
 import {
-  localGetToken,
   localSaveToken,
 } from "../../utils/localStorage/index.js";
-import axios from "axios";
+import {
+  notifyError,
+  notifySuccess,
+} from "../../components/notification";
 const SignIn = () => {
   const [formStep1] = Form.useForm();
   const [formStep2] = Form.useForm();
-  const [formStep3] = Form.useForm();
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(false);
   const [step, setStep] = useState(1);
-  const [verifyCode, setVerifyCode] = useState(1);
-
+  const [count, setCount] = useState(1);
   const handleFinishStep1 = async (e) => {
     console.log(e);
     try {
+      setLoading(true);
+
       let { data } = await api.post(`${API_URL}core/v1/auth/login`, {
         email: e.email,
         password: e.password,
@@ -29,25 +31,44 @@ const SignIn = () => {
       console.log(data);
       localSaveToken(data.accessToken);
       setStep(2);
+      notifySuccess("Đăng nhập thành công vui lòng kiếm tra mail để lấy OTP");
+      setLoading(false);
     } catch (e) {
-      console.log(e);
+      setLoading(false);
+      notifyError("Tên đăng nhập/ mật khẩu không chính xác");
     }
 
     // setStep(step + 1);
   };
   const handleFinishStep2 = async (e) => {
-    console.log(e);
-    console.log(localGetToken());
     try {
-      let { data } = await api.post(`${API_URL}core/v1/auth/verify`, {
+      setLoading(true);
+      await api.post(`${API_URL}core/v1/auth/verify`, {
         verify_code: e.otp,
       });
+      setLoading(false);
       navigate("/connect");
     } catch (e) {
-      console.log(e);
+      setLoading(false);
+      if (count === 3) {
+        notifyError(
+          `Vui lòng đăng nhập lại`
+        );
+        setStep(1);
+        formStep1.setFieldsValue({
+          email: null,
+          password: null,
+        });
+        formStep2.setFieldValue("otp", null);
+        setCount(1);
+      } else {
+        setCount(count + 1);
+        notifyError(
+          `Mã xác nhận không chính xác, bạn còn ${3 - count} lần nhập`
+        );
+      }
     }
   };
-  const handleFinishStep3 = (e) => {};
   return (
     <div className="signin__mainBackground">
       <div className="signin__background">
@@ -66,21 +87,33 @@ const SignIn = () => {
             <span>
               Tên đăng nhập <span style={{ color: "red" }}>*</span>
             </span>
-            <Form.Item className="signin__form__item" name="email">
+            <Form.Item
+              rules={[{ required: true, message: "Vui lòng không bỏ trống!" }]}
+              className="signin__form__item"
+              name="email"
+            >
               <Input placeholder="Nhập tên đăng nhập" />
             </Form.Item>
 
             <span>
               Mật khẩu <span style={{ color: "red" }}>*</span>
             </span>
-            <Form.Item className="signin__form__item" name="password">
+            <Form.Item
+              rules={[{ required: true, message: "Vui lòng không bỏ trống!" }]}
+              className="signin__form__item"
+              name="password"
+            >
               <Input type="password" placeholder="Nhập mật khẩu" />
             </Form.Item>
 
             <div className="signin__form__submit">
-              <div style={{ width: "100%" }} onClick={() => formStep1.submit()}>
+              <Button
+                loading={loading}
+                style={{ width: "100%" }}
+                onClick={() => formStep1.submit()}
+              >
                 Đăng nhập
-              </div>
+              </Button>
             </div>
           </Form>
         )}
@@ -101,17 +134,22 @@ const SignIn = () => {
               className="signin__form__item"
               name="otp"
               style={{ margin: "12px 0" }}
+              rules={[{ required: true, message: "Vui lòng không bỏ trống!" }]}
             >
               <Input placeholder="Nhập mã bảo mật" />
             </Form.Item>
             <div className="signin__form__submit">
-              <div style={{ width: "100%" }} onClick={() => formStep2.submit()}>
+              <Button
+                loading={loading}
+                style={{ width: "100%" }}
+                onClick={() => formStep2.submit()}
+              >
                 Đăng nhập
-              </div>
+              </Button>
             </div>
           </Form>
         )}
-        {step === 3 && (
+        {/* {step === 3 && (
           <Form
             form={formStep3}
             onFinish={handleFinishStep3}
@@ -174,7 +212,7 @@ const SignIn = () => {
               </div>
             </div>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );
