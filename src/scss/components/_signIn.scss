@@ -1,7 +1,7 @@
 .signin__background {
   position: fixed;
   top: 50%;
-  left:50%;
+  left:calc(50% + 160px);
   transform: translate(-100%,-50%);
 }
 .signin__mainBackground {
@@ -25,7 +25,7 @@
     letter-spacing: 0;
     z-index: 1;
     position: absolute;
-    left: calc(50% + 40px);
+    left: calc(50% + 80px);
     background: #fff;
     border-radius: 8px;
     top: 50%;
