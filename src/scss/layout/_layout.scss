@@ -65,10 +65,14 @@
       z-index: 4;
     }
     &--close {
-      transform: translateX(-100%);
+      @include responsive(small) {
+        transform: translateX(-100%);
+      }
     }
     &--open {
-      transform: translateX(0);
+      @include responsive(small) {
+        transform: translateX(0);
+      }
     }
     .menu {
       padding: 4px;
