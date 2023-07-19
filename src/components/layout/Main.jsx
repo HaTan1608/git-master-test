@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { MdTableRows } from "react-icons/md";
 import { IconName } from "react-icons/vsc";
-
+import brandImg1 from "../../assets/images/brand1.jpg";
 import SvgExness from "../../assets/images/SvgExness";
 const Main = ({ children }) => {
   const [open, setOpen] = useState(false);
@@ -13,7 +13,9 @@ const Main = ({ children }) => {
         <div className="openTab" onClick={() => setOpen(!open)}>
           <MdTableRows color="#fff" size={30} />
         </div>
-        <div></div>
+        <div className="img">
+          <img src={brandImg1} alt="" />
+        </div>
       </div>
       <div
         className={`navLayer ${open ? "navLayer--open" : "navLayer--close"}`}

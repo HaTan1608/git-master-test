@@ -27,6 +27,17 @@
     background: rgb(54, 113, 173);
     height: 60px;
     z-index: 5;
+    .img {
+      width: 260px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        height: 60px;
+        width: auto;
+      }
+    }
+
     .openTab {
       width: 60px;
       height: 60px;
@@ -57,10 +68,10 @@
     background: rgb(237, 242, 247);
     height: calc(100vh - 60px);
     transition: all 0.3s linear;
-    svg{
-      height:40px;
-      width:40px;
-      margin-right:8px;
+    svg {
+      height: 40px;
+      width: 40px;
+      margin-right: 8px;
     }
     @include responsive(small) {
       margin-left: 0;
