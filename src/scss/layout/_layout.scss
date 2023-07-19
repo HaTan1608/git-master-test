@@ -52,11 +52,16 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 220px;
+    width: 270px;
     margin-top: 60px;
     background: rgb(237, 242, 247);
     height: calc(100vh - 60px);
     transition: all 0.3s linear;
+    svg{
+      height:40px;
+      width:40px;
+      margin-right:8px;
+    }
     @include responsive(small) {
       margin-left: 0;
       width: 65vw;
