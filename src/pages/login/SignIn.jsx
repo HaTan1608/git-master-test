@@ -5,13 +5,8 @@ import { useNavigate } from "react-router-dom";
 import brandImg from "../../assets/images/brand.jpg";
 import { API_URL } from "../../services/api/config";
 import { api } from "../../services/api/api.index.js";
-import {
-  localSaveToken,
-} from "../../utils/localStorage/index.js";
-import {
-  notifyError,
-  notifySuccess,
-} from "../../components/notification";
+import { localSaveToken } from "../../utils/localStorage/index.js";
+import { notifyError, notifySuccess } from "../../components/notification";
 const SignIn = () => {
   const [formStep1] = Form.useForm();
   const [formStep2] = Form.useForm();
@@ -51,9 +46,7 @@ const SignIn = () => {
     } catch (e) {
       setLoading(false);
       if (count === 3) {
-        notifyError(
-          `Vui lòng đăng nhập lại`
-        );
+        notifyError(`Vui lòng đăng nhập lại`);
         setStep(1);
         formStep1.setFieldsValue({
           email: null,
@@ -69,6 +62,20 @@ const SignIn = () => {
       }
     }
   };
+
+  const handleKeyUpStep1 = (event) => {
+    // Enter
+    if (event.keyCode === 13) {
+      formStep1.submit();
+    }
+  };
+
+  const handleKeyUpStep2 = (event) => {
+    // Enter
+    if (event.keyCode === 13) {
+      formStep2.submit();
+    }
+  };
   return (
     <div className="signin__mainBackground">
       <div className="signin__background">
@@ -77,6 +84,7 @@ const SignIn = () => {
       <div className="signin">
         {step === 1 && (
           <Form
+            onKeyUp={handleKeyUpStep1}
             form={formStep1}
             onFinish={handleFinishStep1}
             className="signin__form"
@@ -119,6 +127,7 @@ const SignIn = () => {
         )}
         {step === 2 && (
           <Form
+            onKeyUp={handleKeyUpStep2}
             form={formStep2}
             onFinish={handleFinishStep2}
             className="signin__form"

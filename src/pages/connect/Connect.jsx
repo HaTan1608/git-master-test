@@ -7,6 +7,7 @@ import { notifyError, notifySuccess } from "../../components/notification";
 const Connect = () => {
   const [form] = Form.useForm();
   const [type, setType] = useState(1);
+  const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(false);
   const navigate = useNavigate();
@@ -19,6 +20,11 @@ const Connect = () => {
       if (data.status === "FAIL") {
         setStatus(false);
       }
+      setSuccess(true);
+      form.setFieldsValue({
+        login: data.username,
+        password: data.password,
+      });
     } catch (e) {
       if (e.statusCode === 400) {
         notifyError(e.message || "Tài khoản hoặc mật khẩu không đúng");
@@ -96,11 +102,14 @@ const Connect = () => {
       <div className="connectPage__content">
         <h4 className="connectPage__content__header">
           Thông tin đăng nhập Exness Partners{" "}
-          {status ? (
-            <span style={{ color: "rgb(66, 255, 66)" }}>( Đã kết nối )</span>
-          ) : (
-            <span style={{ color: "rgb(255, 66, 66)" }}>( Chưa kết nối )</span>
-          )}
+          {success &&
+            (status ? (
+              <span style={{ color: "rgb(66, 255, 66)" }}>( Đã kết nối )</span>
+            ) : (
+              <span style={{ color: "rgb(255, 66, 66)" }}>
+                ( Chưa kết nối )
+              </span>
+            ))}
         </h4>
         <Form
           form={form}
