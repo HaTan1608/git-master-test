@@ -85,7 +85,7 @@ const SignIn = () => {
               <p className="signin__form__info__header">DNI MASTER</p>
             </div>
             <span>
-              Tên đăng nhập <span style={{ color: "red" }}>*</span>
+              Email <span style={{ color: "red" }}>*</span>
             </span>
             <Form.Item
               rules={[{ required: true, message: "Vui lòng không bỏ trống!" }]}
