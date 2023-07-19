@@ -24,11 +24,11 @@
 }
 .signin__mainBackground {
   background: rgb(56, 114, 174);
-  max-height: 100vh;
   width: 100vw;
 }
 .signin {
-  min-height: 100vh;
+  overflow:hidden;
+  height: 100vh;
   width: 100vw;
   padding-top: 12px;
   position: relative;
@@ -61,8 +61,7 @@
       transform: translate(-50%,-50%);
       max-width: 100vw;
       padding: 12px;
-      width: 65vw;
-      margin-left:2.3%;
+      width: 75vw;
     }
     a {
       text-decoration: underline;
