@@ -1,3 +1,4 @@
+@use "../abstracts" as *;
 .connectPage {
   margin-top: 60px;
   margin-left: 220px;
@@ -8,6 +9,12 @@
   height: calc(100% - 120px);
   width: calc(100% - 230px);
   transform: translate(-115px, -60px);
+  @include responsive(small) {
+    margin: 0;
+    transform: translate(0, 0);
+    height:100vh;
+    width:100vw;
+  }
   &__content {
     background: rgb(237, 242, 247);
     padding: 24px;
@@ -19,6 +26,11 @@
     }
     &__form {
       width: 424px;
+      @include responsive(medium) {
+      }
+      @include responsive(small) {
+        width: 70vw;
+      }
     }
     &__submit {
       margin-top: 12px;
@@ -29,7 +41,7 @@
         background: rgb(56, 114, 174);
         border-radius: 5px;
         color: #fff;
-        height:34px;
+        height: 34px;
         cursor: pointer;
         padding: 6px 12px;
         width: 130px;
